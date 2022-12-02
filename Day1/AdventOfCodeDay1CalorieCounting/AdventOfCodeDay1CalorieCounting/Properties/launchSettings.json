@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "AdventOfCodeDay1CalorieCounting": {
+      "commandName": "Project",
+      "workingDirectory": ".\\",
+      "remoteDebugEnabled": false
+    }
+  }
+}

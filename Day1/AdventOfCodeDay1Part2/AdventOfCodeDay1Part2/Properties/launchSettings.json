@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AdventOfCodeDay1Part2": {
+      "commandName": "Project",
+      "workingDirectory": ".\\"
+    }
+  }
+}
