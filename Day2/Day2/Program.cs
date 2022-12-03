@@ -8,6 +8,14 @@ Console.Read();
 
 /**
  * Part1: Calculate the score if the strategy guide is followed
+ * 
+ * Opponent A - Rock
+ *          B - Paper
+ *          C - Scissors
+ *          
+ * Self     X - Rock
+ *          Y - Paper
+ *          Z - Scissors
  */
 void Part1()
 {
@@ -19,7 +27,7 @@ void Part1()
             // read the next round of rock paper scissors
             var inputLine = stream.ReadLine();
 
-            // verify that the guide has three characters (opponent's move and suggested move, separated by a space
+            // verify that the guide has three characters (opponent's move and suggested move, separated by a space)
             if(inputLine == null || inputLine.Length != 3)
             {
                 Console.WriteLine("Error in Strategy Guide input format");
@@ -53,7 +61,67 @@ void Part1()
     }
 }
 
+/**
+ * Part1: Calculate the score if the strategy guide is followed
+ * 
+ * Opponent A - Rock
+ *          B - Paper
+ *          C - Scissors
+ *          
+ * Self     X - Lose
+ *          Y - Draw
+ *          Z - Win
+ */
 void Part2()
 {
+    using (var stream = new StreamReader("input.txt"))
+    {
+        var score = 0;
+        while (!stream.EndOfStream)
+        {
+            // read the next round of rock paper scissors
+            var inputLine = stream.ReadLine();
 
+            // verify that the guide has three characters (opponent's move and suggested round outcome, separated by a space)
+            if (inputLine == null || inputLine.Length != 3)
+            {
+                Console.WriteLine("Error in Strategy Guide input format");
+                return;
+            }
+            else
+            {
+                // convert the opponent's moves to a value, 1 - 3, by subtracting the minimum ASCII value and adding 1
+                var opponentMove = inputLine.ElementAt(0) - 'A' + 1;  // opponent moves start at 'A'
+
+                // convert the suggested outcome to a value, 0 - 2, by subtracting the minimum ASCII value
+                var suggestedOutcome = inputLine.ElementAt(2) - 'X'; // suggested outcomes start at 'X'
+
+                // the point value earned by the suggested outcome can be calcualted by multiplying the outcome value by 3
+                // (0 * 3) = 0 for a loss, (1 * 3) = 3 for a draw, (2 * 3) = 6 for a win
+                score += suggestedOutcome * 3;
+
+                // add the move score value based on the opponents score and the suggested outcome
+                switch(suggestedOutcome)
+                {
+                    case 0: // lose game
+                        if (opponentMove == 1)
+                            score += 3; // value for scissors
+                        else
+                            score += opponentMove - 1;
+                        break;
+                    case 1: // draw
+                        score += opponentMove;
+                        break;
+                    case 2: // win
+                        if (opponentMove == 3)
+                            score += 1; // value for rock
+                        else
+                            score += opponentMove + 1;
+                        break;
+                }
+            }
+        }
+
+        Console.WriteLine($"Part 2: {score}");
+    }
 }
