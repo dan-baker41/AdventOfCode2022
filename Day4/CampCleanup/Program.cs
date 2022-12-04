@@ -50,8 +50,3 @@ void CheckOverlap()
         Console.WriteLine($"Part2: {anyOverlap}");
     }
 }
-
-void Part2()
-{
-
-}
