@@ -1,17 +1,16 @@
 ﻿using CampCleanup;
 
-Part1();
-
-Part2();
+CheckOverlap();
 
 Console.ReadKey();
 
-void Part1()
+void CheckOverlap()
 {
     using (var stream = new StreamReader("input.txt"))
     {
         // initialize a counter
         int numberFullyOverlapped = 0;
+        int anyOverlap = 0;
 
         while(!stream.EndOfStream)
         {
@@ -39,12 +38,16 @@ void Part1()
                     // Check if either assignment fully overlaps the other
                     if (assignment1.DoesFullyContain(assignment2) || assignment2.DoesFullyContain(assignment1))
                         numberFullyOverlapped++;
+
+                    if (assignment1.AnyOverlap(assignment2))
+                        anyOverlap++;
                 }
 
             }
         }
 
         Console.WriteLine($"Part1: {numberFullyOverlapped}");
+        Console.WriteLine($"Part2: {anyOverlap}");
     }
 }
 

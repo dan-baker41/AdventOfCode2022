@@ -15,13 +15,26 @@ namespace CampCleanup
         }
 
         /// <summary>
-        /// Checks if the passed assignment is fully contained by this assignment
+        /// Checks if the passed assignment is fully contained by this assignment.
         /// </summary>
-        /// <param name="assignment">Assignment to check if fully contained</param>
-        /// <returns>True if the passed assignment is fully contained</returns>
+        /// <param name="assignment">Assignment to check if fully contained.</param>
+        /// <returns>True if the passed assignment is fully contained.</returns>
         public bool DoesFullyContain(SectionAssignment assignment)
         {
             return Start <= assignment.Start && End >= assignment.End;
+        }
+
+        /// <summary>
+        /// Checks if there is any overlap in the section assignments.
+        /// </summary>
+        /// <param name="assignment">Assignment to check for overlap.</param>
+        /// <returns>True if there is any overlap.</returns>
+        public bool AnyOverlap(SectionAssignment assignment)
+        {
+            return (Start <= assignment.End && Start >= assignment.Start)
+                || (End >= assignment.Start && End <= assignment.End)
+                || (assignment.Start <= End && assignment.Start >= Start)
+                || (assignment.End >= Start && assignment.End <= End);
         }
 
         // beginning of the assignment range
