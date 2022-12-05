@@ -31,10 +31,8 @@ namespace CampCleanup
         /// <returns>True if there is any overlap.</returns>
         public bool AnyOverlap(SectionAssignment assignment)
         {
-            return (Start <= assignment.End && Start >= assignment.Start)
-                || (End >= assignment.Start && End <= assignment.End)
-                || (assignment.Start <= End && assignment.Start >= Start)
-                || (assignment.End >= Start && assignment.End <= End);
+            return (Start <= assignment.End && End >= assignment.Start)
+                || (assignment.Start <= End && assignment.End >= Start);
         }
 
         // beginning of the assignment range
