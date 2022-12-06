@@ -44,9 +44,9 @@ namespace SupplyStacks
         }
 
         /// <summary>
-        /// Moves an item from the top of one stack to another
+        /// Moves containers the top of one stack to another, one container at a time
         /// </summary>
-        /// <param name="action">Specifies the source and destination</param>
+        /// <param name="action">Specifies the source, destination, and quantity</param>
         /// <exception cref="ArgumentException">If the source or destination are out of bounds</exception>
         public void PerformAction(ContainerStackAction action)
         {
@@ -69,6 +69,41 @@ namespace SupplyStacks
             {
                 var item = from.Pop();
                 to.Push(item);
+            }
+        }
+
+        /// <summary>
+        /// Moves containers from the top of one stack to another all at once
+        /// </summary>
+        /// <param name="action">Specifies the source, destination, and quantity</param>
+        /// <exception cref="ArgumentException">If the source or destination are out of bounds</exception>
+        public void PerformAction9001(ContainerStackAction action)
+        {
+            // make sure the source and destination is within bounds (action values are 1 greater than list indexers)
+            if (action.MoveFrom < 1 || action.MoveFrom > stacks.Count)
+                throw new ArgumentException($"Source stack {action.MoveFrom} is invalid");
+            if (action.MoveTo < 1 || action.MoveTo > stacks.Count)
+                throw new ArgumentException($"Destination stack {action.MoveFrom} is invalid");
+
+            // get the corresponding stacks
+            var from = stacks.ElementAt(action.MoveFrom - 1);
+            var to = stacks.ElementAt(action.MoveTo - 1);
+
+            // make sure there is enough quantity in the source stack
+            if (action.Quantity > from.Count)
+                throw new ArgumentException($"{action.Quantity} exceeds stack quantity of {from.Count}");
+
+            // move the top element 1 at a time, but store them in a temp stack to maintain order
+            var temp = new Stack<char>();
+            for (var i = 0; i < action.Quantity; i++)
+            {
+                temp.Push(from.Pop());
+            }
+
+            // now put the containers on the destination
+            for(var i = 0; i < action.Quantity; i++)
+            {
+                to.Push(temp.Pop());
             }
         }
 
