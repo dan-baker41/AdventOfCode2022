@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SupplyStacks": {
+      "commandName": "Project",
+      "workingDirectory": ".\\"
+    }
+  }
+}
