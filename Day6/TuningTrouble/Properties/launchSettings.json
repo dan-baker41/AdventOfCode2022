@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TuningTrouble": {
+      "commandName": "Project",
+      "workingDirectory": ".\\"
+    }
+  }
+}
