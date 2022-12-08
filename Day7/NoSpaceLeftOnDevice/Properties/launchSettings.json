@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NoSpaceLeftOnDevice": {
+      "commandName": "Project",
+      "workingDirectory": ".\\"
+    }
+  }
+}
