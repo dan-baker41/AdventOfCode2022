@@ -34,13 +34,10 @@ void Part1()
                 default:
                     throw new Exception($"{parse[0]} is not a valid instruction");
             }
-
-            // stop after 220
-            if (device.ClockCycle >= 220)
-                break;
         }
 
-        Console.WriteLine($"Part 1: {device.SignalStrengthSum()}");
+        Console.WriteLine($"Signal Strength: {device.SignalStrengthSum()}");
+        device.DrawDisplay();
     }
 }
 

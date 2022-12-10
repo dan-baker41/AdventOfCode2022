@@ -19,20 +19,21 @@ namespace CathodeRayTube
         private const int NoopCycles = 1;
         private const int AddxCycles = 2;
 
+        private char[] Display;
+
         public ComsDevice()
         {
             _ClockCycle = 0;
             XRegister = 1;
             SignalStrengths = new List<int>();
+            Display = new char[240];
         }
 
         public void AddX(int number)
         {
             for(int i = 0; i < AddxCycles; i++)
             {
-                // increment 1 clock cycle and send a signal if needed
-                _ClockCycle++;
-                SendSignalIfNeeded();
+                TickCycle();
             }
 
             // complese the add X instruction
@@ -41,14 +42,36 @@ namespace CathodeRayTube
 
         public void Noop()
         {
-            // increment 1 clock cycle and send a signal if needed
-            _ClockCycle++;
-            SendSignalIfNeeded();
+            TickCycle();
         }
 
         public int SignalStrengthSum()
         {
             return SignalStrengths.Sum(x => x);
+        }
+
+        public void DrawDisplay()
+        {
+            const int pixelsPerLine = 40;
+            for(var i = 0; i < Display.Length; i++)
+            {
+                if (i % pixelsPerLine == 0)
+                    Console.Write("\n");
+
+                Console.Write(Display[i]);
+            }
+        }
+
+        private void TickCycle()
+        {
+            var lineWidth = 40;
+            if (XRegister == ClockCycle % lineWidth || XRegister == (ClockCycle - 1) % lineWidth || XRegister == (ClockCycle + 1) % lineWidth)
+                Display[ClockCycle] = '#';
+            else
+                Display[ClockCycle] = '.';
+
+            _ClockCycle++;
+            SendSignalIfNeeded();
         }
 
         private void SendSignalIfNeeded()
