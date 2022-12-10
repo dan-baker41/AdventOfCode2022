@@ -9,7 +9,7 @@ Console.ReadKey();
 
 void Part1()
 {
-    var rope = new RopeThingy();
+    var rope = new LongRope(2);
 
     using (var stream = new StreamReader("input.txt"))
     {
@@ -26,5 +26,17 @@ void Part1()
 
 void Part2()
 {
+    var rope = new LongRope(10);
 
+    using (var stream = new StreamReader("input.txt"))
+    {
+        while (!stream.EndOfStream)
+        {
+            var line = stream.ReadLine();
+
+            rope.Move(line!);
+        }
+    }
+
+    Console.WriteLine($"Part 2: {rope.PositionsVisitedByTail()}");
 }
