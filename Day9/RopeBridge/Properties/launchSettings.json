@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RopeBridge": {
+      "commandName": "Project",
+      "workingDirectory": ".\\"
+    }
+  }
+}
