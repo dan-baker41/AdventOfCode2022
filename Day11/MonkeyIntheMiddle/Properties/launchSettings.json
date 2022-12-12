@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MonkeyIntheMiddle": {
+      "commandName": "Project",
+      "workingDirectory": ".\\"
+    }
+  }
+}
