@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DistressSignal": {
+      "commandName": "Project",
+      "workingDirectory": ".\\"
+    }
+  }
+}
