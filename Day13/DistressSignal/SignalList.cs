@@ -42,8 +42,14 @@ namespace DistressSignal
                     }
                     else if (list[i] != ',')
                     {
+                        string number = "";
+                        while (i < list.Length && list[i] != ',' && list[i] != '[' && list[i] != ']')
+                        {
+                            number += list[i];
+                            i++;
+                        }
                         var item = new SignalListItem();
-                        item.Number = list[i] - '0';
+                        item.Number = int.Parse(number);
                         SignalListItems.Add(item);
                     }
                 }
@@ -92,7 +98,6 @@ namespace DistressSignal
                     item.SignalListItems.Add(newItem);
                 }
 
-                var isSmaller = false;
                 for (var i = 0; i < SignalListItems.Count && i < item.SignalListItems.Count; i++)
                 {
 
@@ -101,20 +106,21 @@ namespace DistressSignal
 
                     if (left == null && right != null)
                         return true;
-                    else if (right == null && left != null)
+                    else if (left != null && right == null)
                         return false;
-                    else if (right == null && left == null)
-                        return true;
+                    else if (right != null && left != null)
+                    {
+                        var result = left!.Compare(right!);
 
-                    var result = left!.Compare(right!);
-
-                    if (result == false)
-                        return false;
-                    else if(result == true)
-                        isSmaller = true;
+                        if (result != null)
+                            return result;
+                    }
                 }
 
-                return item.SignalListItems.Count >= SignalListItems.Count || isSmaller;
+                if (SignalListItems.Count == item.SignalListItems.Count)
+                    return null;
+
+                return item.SignalListItems.Count > SignalListItems.Count;
             }
         }
     }

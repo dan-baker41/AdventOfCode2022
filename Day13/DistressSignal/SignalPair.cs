@@ -8,18 +8,11 @@ namespace DistressSignal
 {
     public class SignalPair
     {
-        //List<List<int>> LeftLists;
-        //List<List<int>> RightLists;
         SignalListItem Left = new SignalListItem();
         SignalListItem Right = new SignalListItem();
 
         public SignalPair(string left, string right)
         {
-            //LeftLists = new List<List<int>>();
-            //RightLists = new List<List<int>>();
-
-            //_Init(left, LeftLists);
-            //_Init(right, RightLists);
             Left.Add(left);
             Right.Add(right);
         }

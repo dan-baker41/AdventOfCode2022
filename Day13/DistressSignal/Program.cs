@@ -5,7 +5,7 @@ Part1();
 
 Part2();
 
-Console.ReadKey();
+//Console.ReadKey();
 
 void Part1()
 {
@@ -29,12 +29,12 @@ void Part1()
         {
             if (pairs[i].SignalInRightOrder() == true)
             {
-                //Console.Write($"{i + 1} ");
+                Console.Write($"{i + 1} ");
                 sum += i + 1;
             }
         }
 
-        Console.WriteLine($"Plz work: {sum}");
+        Console.WriteLine($"\nPlz work: {sum}");
     }
 }
 
