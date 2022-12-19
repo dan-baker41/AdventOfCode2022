@@ -29,16 +29,55 @@ void Part1()
         {
             if (pairs[i].SignalInRightOrder() == true)
             {
-                Console.Write($"{i + 1} ");
                 sum += i + 1;
             }
         }
 
-        Console.WriteLine($"\nPlz work: {sum}");
+        Console.WriteLine($"\nPart 1: {sum}");
     }
 }
 
 void Part2()
 {
+    using (var stream = new StreamReader("input.txt"))
+    {
+        List<SignalListItem> signals = new List<SignalListItem>();
+        while (!stream.EndOfStream)
+        {
+            var signal = stream.ReadLine()!;
 
+            // ignore blank lines
+            if (signal != "")
+            {
+                signals.Add(new SignalListItem(signal));
+            }
+        }
+
+        // add the divider packets
+        var dividerPacket1 = new SignalListItem("[[2]]");
+        var dividerPacket2 = new SignalListItem("[[6]]");
+        signals.Add(dividerPacket1);
+        signals.Add(dividerPacket2);
+
+        for(int i = 0; i < signals.Count; i++)
+        {
+            var smallestIndex = i;
+            for(var j = smallestIndex + 1; j < signals.Count; j++)
+            {
+                if (signals[smallestIndex].Compare(signals[j]) == false)
+                    smallestIndex = j;
+            }
+            if(smallestIndex != i)
+            {
+                var temp = signals[i];
+                signals[i] = signals[smallestIndex];
+                signals[smallestIndex] = temp;
+            }
+        }
+
+        var index1 = signals.IndexOf(dividerPacket1) + 1;
+        var index2 = signals.IndexOf(dividerPacket2) + 1;
+
+        Console.WriteLine($"\nPart 2: {index1 * index2}");
+    }
 }

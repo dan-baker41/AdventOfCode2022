@@ -8,6 +8,10 @@ namespace DistressSignal
 {
     public class SignalListItem
     {
+        public SignalListItem() { }
+        public SignalListItem(string signal) {
+            Add(signal);
+        }
         int Number = -1;
         //List<int> Numbers = new List<int>();
         List<SignalListItem?> SignalListItems = new List<SignalListItem?>();
@@ -85,24 +89,38 @@ namespace DistressSignal
             {
                 // in this case, I know at least one of the two sides is a list. If either or the other
                 // sides is NOT a list, convert it into a list
+                List<SignalListItem> leftList;
+                List<SignalListItem> rightList;
                 if (Number >= 0)
                 {
+                    leftList = new List<SignalListItem>();
                     var newItem = new SignalListItem();
                     newItem.Number = Number;
-                    SignalListItems.Add(newItem);
+                    leftList.Add(newItem);
                 }
-                else if (item.Number >= 0)
+                else
                 {
+                    leftList = SignalListItems!;
+                }
+
+
+                if (item.Number >= 0)
+                {
+                    rightList= new List<SignalListItem>();
                     var newItem = new SignalListItem();
                     newItem.Number = item.Number;
-                    item.SignalListItems.Add(newItem);
+                    rightList.Add(newItem);
+                }
+                else
+                {
+                    rightList = item.SignalListItems!;
                 }
 
-                for (var i = 0; i < SignalListItems.Count && i < item.SignalListItems.Count; i++)
+                for (var i = 0; i < leftList.Count && i < rightList.Count; i++)
                 {
 
-                    var left = SignalListItems[i];
-                    var right = item.SignalListItems[i];
+                    var left = leftList[i];
+                    var right = rightList[i];
 
                     if (left == null && right != null)
                         return true;
@@ -117,10 +135,10 @@ namespace DistressSignal
                     }
                 }
 
-                if (SignalListItems.Count == item.SignalListItems.Count)
+                if (leftList.Count == rightList.Count)
                     return null;
 
-                return item.SignalListItems.Count > SignalListItems.Count;
+                return rightList.Count > leftList.Count;
             }
         }
     }
