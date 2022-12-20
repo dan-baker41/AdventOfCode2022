@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RegolithReservoir": {
+      "commandName": "Project",
+      "workingDirectory": ".\\"
+    }
+  }
+}
